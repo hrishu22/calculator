@@ -1,0 +1,89 @@
+from tkinter import *
+from tkinter.messagebox import showerror
+def click(event):
+    b=event.widget
+    text=b['text']
+    print(text)
+    if text=='x':
+        textfield.insert(END,"*")
+    if text=='=':
+        try:
+            ex=textfield.get()
+            an=eval(ex)
+            textfield.delete(0,END)
+            textfield.insert(0,an)
+        except Exception as e:
+            print("Error!",e)
+            showerror("Error!!",e)
+            return
+    textfield.insert(END,text)
+
+def clear():
+    textfield.delete(0,END)
+
+def clear1():
+    x=textfield.get()
+    x=x[0:len(x)-1]
+    textfield.delete(0,END)
+    textfield.insert(0,x)
+window= Tk()
+window.title("Calculator")
+window.geometry('250x413')
+font=('verdana',7,'bold','italic')
+font1=('verdana',18)
+fontb=("italic", '15')
+pic=PhotoImage(file="img/c.png")
+headinglabel= Label(window,image=pic)
+headinglabel.pack(side=TOP, pady=5)
+textfield=Entry(window, font=font1, justify="right")
+textfield.pack(side=TOP, pady=10, fill=X, padx=10)
+btnframe=Frame(window)
+btnframe.pack(side=TOP)
+temp = 1
+for i in range(0, 3):
+    for j in range(0, 3):
+        btn = Button(btnframe, text=str(temp), font=fontb,width=3, padx=5, pady=5)
+        btn.grid(row=i, column=j)
+        temp = temp + 1
+        btn.bind('<Button-1>',click)
+
+
+
+btn1=Button(btnframe, text="+", font=fontb,width=3,padx=5,pady=5)
+btn1.grid(row=0, column=3)
+btn2=Button(btnframe, text="-", font=fontb,width=3,padx=5,pady=5)
+btn2.grid(row=1, column=3)
+btn3=Button(btnframe, text="*", font=fontb,width=3,padx=5,pady=5)
+btn3.grid(row=2, column=3)
+btn4=Button(btnframe, text="/", font=fontb,width=3,padx=5,pady=5)
+btn4.grid(row=3, column=3)
+btn5=Button(btnframe, text="0", font=fontb,width=3,padx=5,pady=5)
+btn5.grid(row=3, column=0)
+btn6=Button(btnframe, text=".", font=fontb,width=3,padx=5,pady=5)
+btn6.grid(row=3, column=1)
+btn7=Button(btnframe, text="=", font=fontb,width=3,padx=5,pady=5)
+btn7.grid(row=3, column=2)
+btn8=Button(btnframe, text="<", font=fontb,width=3,padx=5,pady=5,command=clear1)
+btn8.grid(row=4, column=0)
+btn9=Button(btnframe, text="C", font=fontb,width=3,padx=5,pady=5, command=clear)
+btn9.grid(row=4, column=1)
+btn1.bind('<Button-1>',click)
+btn2.bind('<Button-1>',click)
+btn3.bind('<Button-1>',click)
+btn4.bind('<Button-1>',click)
+btn5.bind('<Button-1>',click)
+btn6.bind('<Button-1>',click)
+btn7.bind('<Button-1>',click)
+
+
+
+
+
+heading=Label(window, text="Created By:- Hrishikesh Anand",font=font)
+heading.pack(side=TOP,)
+
+
+
+
+
+window.mainloop()
